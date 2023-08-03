@@ -1,23 +1,13 @@
 package com.prueba02.controller;
 
-import com.lowagie.text.DocumentException;
 import com.prueba02.dto.PersonaDto;
 import com.prueba02.entity.PersonaEntity;
 import com.prueba02.service.PersonaService;
 import com.prueba02.util.PageRender;
-import com.prueba02.util.PersonaExport01PDF;
-// import com.prueba02.util.PersonaExportPDF;
-import java.io.IOException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
-import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -154,39 +144,7 @@ public class PersonaController {
         return "redirect:/";
     }
     
-    
-    // EXPORTAR TODOS LOS REGISTROS A PDF
-    /*
-    @GetMapping("/export/pdf")
-    public void exportarPDF(HttpServletResponse response) throws DocumentException, IOException{
-        response.setContentType("application/pdf");
-        DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
-        String currentDateTime = dateFormatter.format(new Date());
-        String headerKey = "Content-Disposition";
-        String headerValue = "attachment; filename=users_" + currentDateTime + ".pdf";
-        response.setHeader(headerKey, headerValue);
-        List<PersonaDto> listPersonasDto = personaService.getAllRegistros();
-        PersonaExportPDF exportar = new PersonaExportPDF(listPersonasDto);
-        exportar.export(response);
 
-    }
-*/
-    
-    // EXPORTAR TODOS LOS REGISTROS HABILITADOS A PDF
-    @GetMapping("/true/export/pdf")
-    public void exportar01PDF(HttpServletResponse response) throws DocumentException, IOException{
-        response.setContentType("application/pdf");
-        DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
-        String currentDateTime = dateFormatter.format(new Date());
-        String headerKey = "Content-Disposition";
-        String headerValue = "attachment; filename=users_" + currentDateTime + ".pdf";
-        response.setHeader(headerKey, headerValue);
-        List<PersonaDto> listPersonasDto = personaService.getAllRegistrosStateVerdadero(Boolean.TRUE);
-        PersonaExport01PDF exportar = new PersonaExport01PDF(listPersonasDto);
-        exportar.export(response);
-
-    }
-    
     
     
 }
